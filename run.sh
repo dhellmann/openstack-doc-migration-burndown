@@ -4,4 +4,5 @@ set -e
 
 cd $(dirname $0)
 ./gen-burndown.py
-git ci -m "Updated csv" > /dev/null
+git add data.csv
+git commit -m "Updated csv"
