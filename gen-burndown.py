@@ -42,14 +42,14 @@ def fetch_data(url, debug=False):
     # return json.loads(_parse_content(resp, debug).decode('utf-8'))
 
 observed_repos = set()
-status_counts = collections.Counter()
+in_progress = 0
 
 relevant = fetch_data(URL)
 for review in relevant:
-    if review['status'] == 'ABANDONED':
+    if review['status'] != 'NEW':
         continue
     observed_repos.add(review['project'])
-    status_counts.update([review['status']])
+    in_progress += 1
 
 with open('expected_repos.txt', 'r', encoding='utf-8') as f:
     expected_repos = set([line.strip() for line in f])
@@ -57,15 +57,13 @@ with open('expected_repos.txt', 'r', encoding='utf-8') as f:
 unseen_repos = expected_repos - observed_repos
 not_started = len(unseen_repos)
 
-print('Found {} changes in review'.format(status_counts['NEW']))
-print('Found {} changes merged'.format(status_counts['MERGED']))
+print('Found {} changes in review'.format(in_progress))
 print('Found {} repos not started'.format(not_started))
 
 if not os.path.exists('data.csv'):
     with open('data.csv', 'w') as f:
         writer = csv.writer(f)
         writer.writerow(('date',
-                         'Changes Merged',
                          'Changes In Review',
                          'Repos Not Started', ))
 
@@ -73,8 +71,7 @@ with open('data.csv', 'a') as f:
     writer = csv.writer(f)
     writer.writerow(
         (int(time.time()),
-         status_counts['MERGED'],
-         status_counts['NEW'],
+         in_progress,
          not_started,
         ),
     )
