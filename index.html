@@ -31,7 +31,7 @@
 </style>
 <body>
   <h1>Documentation Migration Burndown</h1>
-<script src="http://d3js.org/d3.v3.js"></script>
+<script src="https://d3js.org/d3.v3.js"></script>
 <script language="javascript">
   var margin = {top: 20, right: 40, bottom: 30, left: 50},
        width = 960 - margin.left - margin.right,
@@ -66,7 +66,7 @@
 
   var files = d3.select("body").append("div");
 
-  d3.csv("data.csv", function(error, data) {
+  d3.csv("./data.csv", function(error, data) {
       color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
       data.forEach(function(d) {
           d.date = new Date(d.date * 1000);
