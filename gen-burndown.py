@@ -64,13 +64,17 @@ print('Found {} repos not started'.format(not_started))
 if not os.path.exists('data.csv'):
     with open('data.csv', 'w') as f:
         writer = csv.writer(f)
-        writer.writerow(('date', 'Repos Not Started', 'Changes In Review', 'Changes Merged'))
+        writer.writerow(('date',
+                         'Changes Merged',
+                         'Changes In Review',
+                         'Repos Not Started', ))
 
 with open('data.csv', 'a') as f:
     writer = csv.writer(f)
     writer.writerow(
         (int(time.time()),
-         not_started,
+         status_counts['MERGED'],
          status_counts['NEW'],
-         status_counts['MERGED']),
+         not_started,
+        ),
     )
