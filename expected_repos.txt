@@ -164,8 +164,6 @@ openstack/oslotest
 openstack/osprofiler
 openstack/ovsdbapp
 openstack/panko
-openstack/patrole
-openstack/paunch
 openstack/pycadf
 openstack/python-aodhclient
 openstack/python-barbicanclient
@@ -219,7 +217,6 @@ openstack/sushy
 openstack/sushy-tools
 openstack/swift
 openstack/taskflow
-openstack/tempest
 openstack/tooz
 openstack/tosca-parser
 openstack/tricircle
