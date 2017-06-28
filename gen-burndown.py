@@ -84,3 +84,9 @@ with open('data.json', 'w') as f:
         {'Changes In Review': repo}
         for repo in sorted(observed_repos)
     ]))
+
+with open('notstarted.json', 'w') as f:
+    f.write(json.dumps([
+        {'Repos Not Started': repo}
+        for repo in sorted(unseen_repos)
+    ]))

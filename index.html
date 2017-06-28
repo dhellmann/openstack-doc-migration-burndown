@@ -35,6 +35,18 @@
 </head>
 <body>
   <h1>Documentation Migration Burndown</h1>
+
+<div id="chart"></div>
+<table id="tables">
+<tr style="vertical-align: top;">
+<td id="changes">
+</td>
+<td id="not-started">
+</td>
+</tr>
+</table>
+</div>
+
 <script src="https://d3js.org/d3.v3.js"></script>
 <script language="javascript">
   var margin = {top: 20, right: 40, bottom: 30, left: 50},
@@ -61,7 +73,7 @@
       .y1(function(d) { return y(d.y0 + d.y); });
   var stack = d3.layout.stack()
       .values(function(d) { return d.values; });
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#chart").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -121,7 +133,7 @@
 
   d3.json("data.json", function(data) {
       function tabulate(data, columns) {
-          var table = d3.select('body').append('table').attr("class", "todo");
+          var table = d3.select('#changes').append('table').attr("class", "todo");
           var thead = table.append('thead')
           var tbody = table.append('tbody');
 
@@ -155,6 +167,42 @@
 	}
       // render the table(s)
       tabulate(data, ['Changes In Review']);
+  });
+
+  d3.json("notstarted.json", function(data) {
+      function tabulate(data, columns) {
+          var table = d3.select('#not-started').append('table').attr("class", "todo");
+          var thead = table.append('thead')
+          var tbody = table.append('tbody');
+
+          // append the header row
+          thead.append('tr')
+              .selectAll('th')
+              .data(columns).enter()
+              .append('th')
+              .text(function (column) { return column; });
+
+          // create a row for each object in the data
+          var rows = tbody.selectAll('tr')
+              .data(data)
+              .enter()
+              .append('tr');
+
+          // create a cell in each row for each column
+          var cells = rows.selectAll('td')
+              .data(function (row) {
+                  return columns.map(function (column) {
+                      return {column: column, value: row[column]};
+                  });
+              })
+              .enter()
+              .append('td')
+              .text(function (d) { return d.value; });
+
+          return table;
+	}
+      // render the table(s)
+      tabulate(data, ['Repos Not Started']);
   });
 </script>
 
