@@ -75,3 +75,9 @@ with open('data.csv', 'a') as f:
          not_started,
         ),
     )
+
+with open('data.json', 'w') as f:
+    f.write(json.dumps([
+        {'Changes In Review': repo}
+        for repo in sorted(observed_repos)
+    ]))

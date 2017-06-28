@@ -148,17 +148,13 @@
               .enter()
               .append('td')
               .html(function (d) {
-                  if (/^\d+/.test(d.value)) {
-                      return "<a href=https://review.openstack.org/" + d.value + ">" + d.value + "</a>";
-                  } else {
-                      return d.value;
-                  }
+                  return "<a href=https://review.openstack.org/#/q/topic:doc-migration+project:" + d.value + ">" + d.value + "</a>";
               });
 
           return table;
 	}
       // render the table(s)
-      tabulate(data, ['filename', 'Repos Not Started', 'Changes In Review']);
+      tabulate(data, ['Changes In Review']);
   });
 </script>
 
