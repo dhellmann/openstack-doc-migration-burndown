@@ -2,6 +2,8 @@
 
 set -e
 
+date
+
 cd $(dirname $0)
 ./gen-burndown.py
 git add data.*
