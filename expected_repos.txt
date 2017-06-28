@@ -12,7 +12,7 @@ openstack/barbican
 openstack/bifrost
 openstack/castellan
 openstack/castellan
-openstack/ceilometer(lhx)
+openstack/ceilometer
 openstack/ceilometer-powervm
 openstack/ceilometermiddleware
 openstack/cinder
@@ -137,7 +137,7 @@ openstack/neutron-lbaas
 openstack/neutron-lbaas-dashboard
 openstack/neutron-lbaas-dashboard
 openstack/neutron-lib
-openstack/nova(Chason)
+openstack/nova
 openstack/octavia
 openstack/octavia-dashboard
 openstack/openstack-ansible
@@ -212,7 +212,7 @@ openstack/oslo.messaging
 openstack/oslo.middleware
 openstack/oslo.policy
 openstack/oslo.privsep
-openstack/oslo.reports(gcb)
+openstack/oslo.reports
 openstack/oslo.rootwrap
 openstack/oslo.serialization
 openstack/oslo.service
@@ -290,7 +290,7 @@ openstack/python-mistralclient
 openstack/python-monascaclient
 openstack/python-muranoclient
 openstack/python-neutronclient
-openstack/python-novaclient(Chason)
+openstack/python-novaclient
 openstack/python-octaviaclient
 openstack/python-openstackclient
 openstack/python-pankoclient
