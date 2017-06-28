@@ -46,9 +46,12 @@ in_progress = 0
 
 relevant = fetch_data(URL)
 for review in relevant:
-    if review['status'] != 'NEW':
+    if review['status'] == 'ABANDONED':
         continue
     observed_repos.add(review['project'])
+    if review['status'] == 'MERGED':
+        # Do not count this repo as in-progress
+        continue
     in_progress += 1
 
 with open('expected_repos.txt', 'r', encoding='utf-8') as f:
