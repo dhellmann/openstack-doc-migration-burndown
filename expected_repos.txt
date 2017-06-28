@@ -182,7 +182,6 @@ openstack/openstack-ansible-rsyslog_server
 openstack/openstack-ansible-security
 openstack/openstack-doc-tools
 openstack/openstack-manuals
-openstack/openstackclient
 openstack/openstackdocstheme
 openstack/os-api-ref
 openstack/os-apply-config
