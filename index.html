@@ -173,7 +173,7 @@ changes</a>.</p>
               .enter()
               .append('td')
               .html(function (d) {
-                  return "<a href=https://review.openstack.org/#/q/topic:doc-migration+project:" + d.value + ">" + d.value + "</a>";
+                  return "<a href=https://review.openstack.org/#/q/is:open+topic:doc-migration+project:" + d.value + ">" + d.value + "</a>";
               });
 
           return table;
