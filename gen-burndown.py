@@ -42,17 +42,19 @@ def fetch_data(url, debug=False):
     # return json.loads(_parse_content(resp, debug).decode('utf-8'))
 
 observed_repos = set()
-in_progress = 0
+in_progress = set()
 
 relevant = fetch_data(URL)
 for review in relevant:
+    if review['project'] == 'openstack/django_openstack_auth':
+        print(review['status'], review)
     if review['status'] == 'ABANDONED':
         continue
     observed_repos.add(review['project'])
     if review['status'] == 'MERGED':
         # Do not count this repo as in-progress
         continue
-    in_progress += 1
+    in_progress.add(review['project'])
 
 with open('expected_repos.txt', 'r', encoding='utf-8') as f:
     expected_repos = set([line.strip() for line in f])
@@ -60,7 +62,7 @@ with open('expected_repos.txt', 'r', encoding='utf-8') as f:
 unseen_repos = expected_repos - observed_repos
 not_started = len(unseen_repos)
 
-print('Found {} changes in review'.format(in_progress))
+print('Found {} changes in review'.format(len(in_progress)))
 print('Found {} repos not started'.format(not_started))
 
 if not os.path.exists('data.csv'):
@@ -74,7 +76,7 @@ with open('data.csv', 'a') as f:
     writer = csv.writer(f)
     writer.writerow(
         (int(time.time()),
-         in_progress,
+         len(in_progress),
          not_started,
         ),
     )
@@ -82,7 +84,7 @@ with open('data.csv', 'a') as f:
 with open('data.json', 'w') as f:
     f.write(json.dumps([
         {'Changes In Review': repo}
-        for repo in sorted(observed_repos)
+        for repo in sorted(in_progress)
     ]))
 
 with open('notstarted.json', 'w') as f:
