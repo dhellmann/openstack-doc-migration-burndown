@@ -31,23 +31,32 @@ def _parse_content(resp, debug=False):
 
 
 def fetch_data(url, debug=False):
-    print('fetching {}'.format(url))
+    start = None
+    more_changes = True
     config = configparser.ConfigParser()
     config.read('config.ini')
     user = config.get('default', 'user')
     password = config.get('default', 'password')
     auth = HTTPDigestAuth(user, password)
-    resp = requests.get(url, auth=auth)
-    return _parse_content(resp, debug)
-    # return json.loads(_parse_content(resp, debug).decode('utf-8'))
+    response = []
+    to_fetch = url
+    while more_changes:
+        if start:
+            to_fetch = url + '&start={}'.format(start)
+        print('fetching {}'.format(to_fetch))
+        resp = requests.get(to_fetch, auth=auth)
+        content = _parse_content(resp, debug)
+        response.extend(content)
+        more_changes = content[-1].get('_more_changes', False)
+        start = len(content)
+    return response
 
 observed_repos = set()
 in_progress = set()
 
 relevant = fetch_data(URL)
+print('Found {} reviews'.format(len(relevant)))
 for review in relevant:
-    if review['project'] == 'openstack/django_openstack_auth':
-        print(review['status'], review)
     if review['status'] == 'ABANDONED':
         continue
     observed_repos.add(review['project'])
