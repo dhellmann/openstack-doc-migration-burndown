@@ -57,8 +57,6 @@ openstack/manila
 openstack/manila-image-elements
 openstack/manila-ui
 openstack/mistral
-openstack/mistral-dashboard
-openstack/mistral-extra
 openstack/mistral-lib
 openstack/molteniron
 openstack/monasca-log-api
