@@ -72,7 +72,6 @@ openstack/networking-midonet
 openstack/networking-odl
 openstack/networking-ovn
 openstack/networking-sfc
-openstack/networking-vsphere
 openstack/neutron
 openstack/neutron-dynamic-routing
 openstack/neutron-fwaas
