@@ -7,8 +7,6 @@ openstack/barbican
 openstack/bifrost
 openstack/castellan
 openstack/ceilometer
-openstack/ceilometer-powervm
-openstack/ceilometermiddleware
 openstack/cinder
 openstack/cliff
 openstack/cloudkitty
