@@ -48,7 +48,7 @@ github repo</a>.</p>
 reviewing <a href="https://review.openstack.org/#/q/topic:doc-migration%20is:open">pending
 changes</a>.</p>
 
-<p>Last updated: Fri Jul 21 17:13:35 UTC 2017
+<p>Last updated: Fri Jul 21 18:07:41 UTC 2017
 </p>
 
 
@@ -225,7 +225,7 @@ changes</a>.</p>
 
   d3.json("missing_urls.json", function(data) {
       function tabulate(data, columns) {
-          var table = d3.select('#missing-urls).append('table').attr("class", "todo");
+          var table = d3.select('#missing-urls').append('table').attr("class", "todo");
           var thead = table.append('thead')
           var tbody = table.append('tbody');
 
@@ -251,12 +251,14 @@ changes</a>.</p>
               })
               .enter()
               .append('td')
-              .text(function (d) { return d.value; });
+              .html(function (d) {
+                  return "<a href=" + d.value + ">" + d.value + "</a>";
+              });
 
           return table;
 	}
       // render the table(s)
-      tabulate(data, ['Repos Not Started']);
+      tabulate(data, ['Missing URLs']);
   });
 </script>
 
