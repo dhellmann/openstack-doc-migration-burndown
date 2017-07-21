@@ -60,7 +60,6 @@ def fetch_data(url, debug=False):
         resp = requests.get(to_fetch, auth=auth)
         content = _parse_content(resp, debug)
         response.extend(content)
-        print(content[-1])
         more_changes = content[-1].get('_more_changes', False)
         start = len(content)
     return response
@@ -85,25 +84,22 @@ with open('expected_repos.txt', 'r', encoding='utf-8') as f:
 unseen_repos = expected_repos - observed_repos
 not_started = len(unseen_repos)
 
-print('Found {} changes in review'.format(len(in_progress)))
-print('Found {} repos not started'.format(not_started))
-
 with open('../openstack-manuals/www/project-data/latest.yaml', 'r', encoding='utf-8') as f:
     doc_projects = yaml.safe_load(f.read())
 
 
 def _check_url(url):
     "Return True if the URL exists, False otherwise."
-    print('Checking {} '.format(url), end='')
+    # print('Checking {} '.format(url), end='')
     try:
         resp = requests.head(url)
     except requests.exceptions.TooManyRedirects:
         result = False
     result = (resp.status_code // 100) == 2
-    if not result:
-        print('MISSING')
-    else:
-        print()
+    # if not result:
+    #     print('MISSING')
+    # else:
+    #     print()
     return result
 
 
@@ -119,6 +115,10 @@ for project in doc_projects:
         if not _check_url(url):
             missing_urls.append(url)
 missing_urls.sort()
+
+print('Found {} changes in review'.format(len(in_progress)))
+print('Found {} repos not started'.format(not_started))
+print('Found {} missing URLs'.format(len(missing_urls)))
 
 if not os.path.exists('data.csv'):
     with open('data.csv', 'w') as f:
