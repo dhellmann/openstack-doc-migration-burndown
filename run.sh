@@ -14,6 +14,6 @@ source .venv/bin/activate
 
 ./gen-burndown.py
 sed -i "s/Last updated:.*/Last updated: $(date -u)/" index.html
-git add data.* missing_urls.json notstarted.json index.html
+git add data.* *.json index.html
 git commit -m "Updated csv"
-scp -i ~/.ssh/id_rsa-backups data.* notstarted.json index.html doughellmann.com:~/doughellmann.com/doc-migration/
+scp -i ~/.ssh/id_rsa-backups data.* *.json index.html doughellmann.com:~/doughellmann.com/doc-migration/
