@@ -25,8 +25,11 @@ URLS_BY_TYPE = {
         'https://docs.openstack.org/{name}/{series}/admin/index.html',
         'https://docs.openstack.org/{name}/{series}/configuration/index.html',
     ],
+    'networking': [
+        'https://docs.openstack.org/{name}/{series}/install/index.html',
+        'https://docs.openstack.org/{name}/{series}/configuration/index.html',
+    ],
 }
-URLS_BY_TYPE['networking'] = URLS_BY_TYPE['service'][:]
 URLS_BY_TYPE['baremetal'] = URLS_BY_TYPE['service'][:]
 
 
