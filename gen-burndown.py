@@ -71,8 +71,11 @@ def fetch_data(url, debug=False):
         resp = requests.get(to_fetch, auth=auth)
         content = _parse_content(resp, debug)
         response.extend(content)
-        more_changes = content[-1].get('_more_changes', False)
-        start = len(content)
+        try:
+            more_changes = content[-1].get('_more_changes', False)
+        except AttributeError:
+            print('Unrecognized response: {!r}'.format(resp.content))
+            raise
         start = (start or 0) + len(content)
     return response
 
