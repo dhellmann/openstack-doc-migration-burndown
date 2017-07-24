@@ -73,6 +73,7 @@ def fetch_data(url, debug=False):
         response.extend(content)
         more_changes = content[-1].get('_more_changes', False)
         start = len(content)
+        start = (start or 0) + len(content)
     return response
 
 observed_repos = set()
