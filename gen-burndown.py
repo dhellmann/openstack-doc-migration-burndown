@@ -16,21 +16,29 @@ PROJECT_SITE = "https://review.openstack.org/changes/"
 QUERY = "q=topic:doc-migration"
 URL = "%s?%s" % (PROJECT_SITE, QUERY)
 
+INSTALL_TMPL = 'https://docs.openstack.org/{name}/{series}/install/index.html'
+ADMIN_TMPL = 'https://docs.openstack.org/{name}/{series}/admin/index.html'
+CONFIG_TMPL = 'https://docs.openstack.org/{name}/{series}/configuration/index.html'
+
 ALL_URLS = [
     'https://docs.openstack.org/{name}/{series}/index.html',
 ]
 URLS_BY_TYPE = {
     'service': [
-        'https://docs.openstack.org/{name}/{series}/install/index.html',
-        'https://docs.openstack.org/{name}/{series}/admin/index.html',
-        'https://docs.openstack.org/{name}/{series}/configuration/index.html',
+        INSTALL_TMPL,
+        ADMIN_TMPL,
+        CONFIG_TMPL,
     ],
     'networking': [
-        'https://docs.openstack.org/{name}/{series}/install/index.html',
-        'https://docs.openstack.org/{name}/{series}/configuration/index.html',
+        INSTALL_TMPL,
+        CONFIG_TMPL,
     ],
 }
 URLS_BY_TYPE['baremetal'] = URLS_BY_TYPE['service'][:]
+
+NOT_EXPECTED = {
+    'vitrage': [ADMIN_TMPL, CONFIG_TMPL],
+}
 
 
 def _parse_content(resp, debug=False):
@@ -111,6 +119,8 @@ for project in doc_projects:
     to_check = ALL_URLS[:]
     to_check.extend(URLS_BY_TYPE.get(project['type'], []))
     for url_tmpl in to_check:
+        if url_tmpl in NOT_EXPECTED.get(project['name'], []):
+            continue
         url = url_tmpl.format(
             series='latest',
             name=project['name'],
