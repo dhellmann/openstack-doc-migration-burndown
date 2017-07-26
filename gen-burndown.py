@@ -38,6 +38,7 @@ URLS_BY_TYPE['baremetal'] = URLS_BY_TYPE['service'][:]
 
 NOT_EXPECTED = {
     'vitrage': [ADMIN_TMPL, CONFIG_TMPL],
+    'swift': [CONFIG_TMPL],
 }
 
 
