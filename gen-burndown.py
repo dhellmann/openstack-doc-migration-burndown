@@ -13,7 +13,7 @@ from requests.auth import HTTPDigestAuth
 import yaml
 
 PROJECT_SITE = "https://review.openstack.org/changes/"
-QUERY = "q=topic:^doc-migration.*"
+QUERY = "q=intopic:doc-migration"
 URL = "%s?%s" % (PROJECT_SITE, QUERY)
 
 INSTALL_TMPL = 'https://docs.openstack.org/{name}/{series}/install/index.html'
